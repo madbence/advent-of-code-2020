@@ -1,17 +1,17 @@
 (ns d06
-  (:require [clojure.string :as str]
+  (:require [clojure.string :refer [split-lines]]
             [clojure.set :refer [intersection]]))
 
 (defn a [input]
   (->> input
-       clojure.string/split-lines
-       (partition-by #(= % ""))
+       split-lines
+       (partition-by empty?)
        (map #(-> (apply str %) seq set count))
        (reduce +)))
 
 (defn b [input]
   (->> input
-       clojure.string/split-lines
-       (partition-by #(= % ""))
+       split-lines
+       (partition-by empty?)
        (map #(->> % (map (comp set seq)) (reduce intersection) count))
        (reduce +)))
